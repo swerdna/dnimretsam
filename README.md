@@ -1,6 +1,9 @@
 # Devlog
 
-20150708 - sketched out thoughts, initial constraints, UI, rough design.
+20150708
+
+* sketched out thoughts, initial constraints, UI, rough design.
+* implemented first pass prototype
 
 # Thoughts
 
@@ -64,4 +67,14 @@ Game
 
 # Technical debt / backlog
 
+* Remove hardcoding
+* Tabs to spaces
+* Implementation out of headers
 * Out of source builds.
+* Factories for CodeMaster / CodeBreaker (to support human / computer playing either role)
+* Observer for CodeBreaker / board maybe
+* Knuth / other algorithms as code breakers
+* Template metaprogramming solver based on Knuth
+* Command line invocation parameters: select algorithm
+* Support variants
+
