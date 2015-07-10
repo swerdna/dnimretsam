@@ -5,9 +5,11 @@
  * Copyright 2015 Bob Andrews
  */
 
-#include <iostream>
 #include <vector>
+#include <tuple>
 #include "MastermindCommonDefines.h"
+#include "CGuess.h"
+#include "CResult.h"
 
 namespace NMasterMind
 {
@@ -15,55 +17,49 @@ namespace NMasterMind
 class CBoard
 {
     public:
-        CBoard()
-        {
-            m_guesses.reserve(12);
-        }
+        /** Constructor **/
+        CBoard();
+        
+        /**
+         * Displays the board, prints to stdout
+         *
+         * +---------+---------+
+         * | . . . . | . . . . |
+         * +---------+---------+
+         * | 4 3 2 2 | B B B B |  <== You Win!
+         * +---------+---------+
+         * | 3 4 2 2 | B B W W |
+         * +---------+---------+
+         * | 1 1 1 1 | . . . . |
+         * +---------+---------+
+         * | 1 1 2 2 | B B . . |
+         * +---------+---------+
+         *
+         */
+        void display() const;
 
-        void display() const
-        {
-            for (int i=12; i > m_guesses.size(); --i)
-            {
-                std::cout << "+---------+---------+\n"
-                          << "| . . . . | . . . . |\n";
-            }
-            auto l_iter = m_guesses.rbegin();
-            auto l_endIter = m_guesses.rend();
-            for ( ; l_iter != l_endIter; ++l_iter)
-            {
-                std::cout << "+---------+---------+\n"
-                          << "| ";
+        /**
+         * Adds the guess and the result to the board
+         *
+         * @param a_guess the guess to add
+         * @param a_result the evaluation of the guess
+         */
+        void updateBoard( const CGuess &a_guess, const CResult &a_result );
 
-                for (auto &&j : std::get<0>(*l_iter))
-                {
-                    std::cout << j << ' ';
-                }
-                std::cout<< "| ";
-                        
-                for (auto &&j : std::get<1>(*l_iter).m_result)
-                {
-                    std::cout << j << ' ';
-                }
+        /**
+         * Returns a handle to the result of the last guess.
+         *
+         * @return const CResult * last guess
+         */
+        const CResult *getLastResult() const;
 
-                std::cout<< "|";
-                if (std::get<1>(*l_iter).isWinner())
-                {
-                    std::cout << " <--- You Win, Congratulations!";
-                }
-                std::cout << '\n';
-            }
-
-            std::cout << "+---------+---------+" << std::endl; 
-        }
-
-        void updateBoard( const CGuess &a_guess, const CResult &a_result )
-        {
-            // Copies the guess and result into the board.
-            m_guesses.push_back( std::tuple< const CGuess, const CResult>(a_guess, a_result) );
-        }
     private:
-        std::vector< std::tuple< const CGuess, const CResult > > m_guesses;
 
+        /** A "round" in a guess / result **/
+        typedef typename std::tuple< const CGuess, const CResult > tRound;
+
+        /** The guesses **/
+        std::vector< tRound > m_guesses;
 };
 
 }

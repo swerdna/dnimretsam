@@ -5,28 +5,18 @@
  * Copyright 2015 Bob Andrews
  */
 
-#include <algorithm>
+#include <cstddef>
 
 namespace NMasterMind
 {
 
-typedef std::array< char , 4 > CGuess;
-
-struct CResult
-{
-    CResult()
-      : m_result( {{'.', '.', '.', '.'}} )
-    {}
-
-    bool isWinner() const
-    {
-        return m_result.end() ==
-            std::find_if_not( m_result.begin(), m_result.end(), []( char i) { return 'B' == i; } );
-    }
-    char &operator[]( size_t i ) { return m_result[i]; }
-
-    std::array< char , 4 > m_result;
-};
+// Static defines / constants
+static const size_t ctMaxRounds     = 12;
+static const size_t ctSlots         = 4;
+static const int    ctPegs          = 6;
+static const char   ctPadChar       = '.';
+static const char   ctMatchChar     = 'B';
+static const char   ctTransposeChar = 'W';
 
 }
 

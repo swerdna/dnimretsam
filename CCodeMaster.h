@@ -6,6 +6,8 @@
  */
 
 #include "MastermindCommonDefines.h"
+#include "CGuess.h"
+#include "CResult.h"
 
 namespace NMasterMind
 {
@@ -13,67 +15,38 @@ namespace NMasterMind
 class CCodeMaster
 {
     public:
-        void createCode()
-        {
-            std::mt19937_64 l_rng;
-            l_rng.seed( time(NULL) );
+        CCodeMaster() = default;
 
-            for ( auto&& i : m_code )
-            {
-                i = (l_rng() % 6) + '1';
-            }
-            // m_code = { { '1', '1', '2', '2' } };
-        }
+        /** Creates and remembers a code **/
+        void createCode();
 
-        CResult evaluateGuess( const CGuess &a_guess ) const
-        {
-            size_t l_outputIdx = 0;
-            CResult l_res;
+        /**
+         * Evaluates a guess, returning 'B' for matching pegs in correct slots,
+         * 'W' for pegs that match the code, but are in a wrong location.
+         *
+         * See wikipedia, Mastermind, for more.
+         *
+         * @param a_guess 
+         * @return CResult the result of the evaluation
+         */
+        CResult evaluateGuess( const CGuess &a_guess ) const;
 
-            // Take a copy of the answer, and the code on the stack to make temporary modifications
-            CGuess l_guess = a_guess;
-            CGuess l_code = m_code;
+        /**
+         * Getter for the code, formatted as a string
+         *
+         * @return std::string the secret code.
+         */
+        std::string getCode() const;
 
-            // Check exact matches first
-            for ( size_t i = 0; i < l_code.size(); ++i)
-            {
-                // Matches, same position and value.
-                if (l_guess[i] == l_code[i])
-                {
-                    l_res[ l_outputIdx++ ] = 'B';
-                    // Invalidate this guess so it's not matched again.
-                    l_guess[i] = -1;
-                    l_code[i] = -2;
-                }
-            }
-            for ( size_t i = 0; i < l_code.size(); ++i)
-            {
-                for (size_t j = 0; j < l_guess.size(); ++j)
-                {
-                    if (l_guess[j] == l_code[i])
-                    {
-                        l_res[ l_outputIdx++ ] = 'W';
-                        // Invalidate this guess so it's not matched again.
-                        l_guess[j] = -1;
-                        l_code[i] = -2;
-                        break;
-                    }
-                }
-            }
-            return l_res;
-        }
-
-        std::string getCode() const
-        {
-            std::string l_str;
-            for ( auto i : m_code )
-            {
-                l_str += i;
-            }
-            return l_str;
-        }
+        /**
+         * Setter for a code
+         *
+         * @param a_code the code to use
+         */
+        void setCode( const std::string &a_code );
 
     private:
+
         // The selected code
         CGuess m_code;
 };
