@@ -5,6 +5,9 @@
 * sketched out thoughts, initial constraints, UI, rough design.
 * implemented first pass prototype
 
+20150709
+* No compiler access today.  Some minor cleanups.
+
 # Thoughts
 
 * This game has many variants (number of spaces on the board, number of colors, letters instead of colors).

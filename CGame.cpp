@@ -5,19 +5,31 @@
 #include "CGame.h"
 #include "CBoard.h"
 #include "CCodeMaster.h"
-#include "CCodeBreaker.h"
+#include "CKnuthCodeBreaker.h"
+#include "CHumanCodeBreaker.h"
 #include "MastermindCommonDefines.h"
 
 namespace NMasterMind
 {
 
-CGame::CGame()
+CGame::CGame( const std::string &a_code )
   : m_board  ( new CBoard )
   , m_master ( new CCodeMaster )
   , m_breaker( new CCodeBreaker( m_board ) )
 {
-    // TODO: Factories for breaker, master, board
-    // TODO: Configuration / customization
+    // TODO: better validation for this input
+    // TODO: Could be a factory.
+    if (ctSlots == a_code.size())
+    {
+        m_master->setCode( a_code );
+        m_breaker = new CKnuthCodeBreaker( m_board );
+    }
+    else
+    {
+        m_breaker = new CCodeBreaker( m_board );
+    }
+
+    // TODO: Configuration
 }
 
 CGame::~CGame()

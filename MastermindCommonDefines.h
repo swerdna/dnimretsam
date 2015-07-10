@@ -10,22 +10,35 @@
 namespace NMasterMind
 {
 
-typedef std::array< char , 4 > CGuess;
+// Static defines / constants
+static const size_t ctMaxRounds     = 12;
+static const size_t ctSlots         = 4;
+static const int    ctPegs          = 6;
+static const char   ctPadChar       = '.';
+static const char   ctMatchChar     = 'B';
+static const char   ctTransposeChar = 'W';
+
+typedef std::array< char , ctSlots > CGuess;
 
 struct CResult
 {
     CResult()
-      : m_result( {{'.', '.', '.', '.'}} )
-    {}
+    {
+        std::fill( m_result.begin(), m_result.end(), ctPadChar );
+    }
 
     bool isWinner() const
     {
+        // If this result only contains 'B's, we have a winner.
         return m_result.end() ==
-            std::find_if_not( m_result.begin(), m_result.end(), []( char i) { return 'B' == i; } );
+            std::find_if_not( m_result.begin(), m_result.end(),
+                              []( char i) { return ctMatchChar == i ; }
+                            );
     }
+
     char &operator[]( size_t i ) { return m_result[i]; }
 
-    std::array< char , 4 > m_result;
+    std::array< char , ctSlots > m_result;
 };
 
 }
