@@ -3,6 +3,8 @@
  */
 
 #include "CCodeMaster.h"
+#include <utility>
+#include <random>
 
 namespace NMasterMind
 {
@@ -16,76 +18,37 @@ void CCodeMaster::createCode()
 
     l_rng.seed( time(nullptr) );
 
-    for ( auto&& i : m_code )
+    int l_code = 0;
+    for (int i = 0; i < ctSlots; ++i )
     {
-        i = ( l_rng() % ctPegs ) + '1';
+        l_code *= 10;
+        l_code += 1 + l_rng() % ctPegs;
     }
+
+    CGuess l_guess( l_code );
+
+    std::swap( m_code, l_guess );
 }
 
 //----------------------------------------------------------------------------//
 
 CResult CCodeMaster::evaluateGuess( const CGuess &a_guess ) const
 {
-    size_t l_outputIdx = 0;
-    CResult l_res;
-
-    // Take a copy of the answer, and the code on the stack to make temporary modifications
-    CGuess l_guess = a_guess;
-    CGuess l_code = m_code;
-
-    // Check exact matches first
-    for ( size_t i = 0; i < l_code.size(); ++i )
-    {
-        // Matches, same position and value.
-        if ( l_guess[ i ] == l_code[ i ] )
-        {
-            l_res[ l_outputIdx++ ] = ctMatchChar;
-
-            // Invalidate this guess so it's not matched again.
-            l_guess[ i ] = -1;
-            l_code[ i ]  = -2;
-        }
-    }
-
-    // Check for pegs that match the code, but are transposed
-    for ( auto&& l_codePeg : l_code )
-    {
-        for ( auto&& l_guessPeg : l_guess )
-        {
-            if ( l_guessPeg == l_codePeg )
-            {
-                l_res[ l_outputIdx++ ] = ctTransposeChar;
-
-                // Invalidate this guess so it's not matched again.
-                l_guessPeg = -1;
-                l_codePeg  = -2;
-                break;
-            }
-        }
-    }
-    return l_res;
+    return m_code.compare( a_guess );
 }
 
 //----------------------------------------------------------------------------//
 
 std::string CCodeMaster::getCode() const
 {
-    std::string l_str;
-    for ( auto i : m_code )
-    {
-        l_str += i;
-    }
-    return l_str;
+    return m_code.toString();
 }
 
 //----------------------------------------------------------------------------//
 
 void CCodeMaster::setCode( const std::string &a_code )
 {
-    for ( int i = 0; i < ctSlots; ++i )
-    {
-        m_code[i] = a_code[i];
-    }
+    m_code.fromString( a_code );
 }
 
 }

@@ -36,18 +36,12 @@ void CBoard::display() const
                   << "| ";
 
         // Print the guess
-        for ( auto &&j : std::get<0>(*l_iter) )
-        {
-            std::cout << j << ' ';
-        }
+        std::cout << std::get<0>(*l_iter);
 
         std::cout<< "| ";
                 
         // Print the result
-        for ( auto &&j : std::get<1>(*l_iter).m_result )
-        {
-            std::cout << j << ' ';
-        }
+        std::cout << std::get<1>(*l_iter);
 
         std::cout<< "|";
 
@@ -70,6 +64,17 @@ void CBoard::updateBoard( const CGuess &a_guess, const CResult &a_result )
     // Copies the guess and result into the board.
     tRound l_round( a_guess, a_result );
     m_guesses.push_back( l_round );
+}
+
+//----------------------------------------------------------------------------//
+const CResult *CBoard::getLastResult() const
+{
+    const CResult *l_res = nullptr;
+    if ( ! m_guesses.empty() )
+    {
+        l_res = & std::get<1>(*( m_guesses.rbegin() ));
+    }
+    return l_res;
 }
 
 }

@@ -3,33 +3,31 @@
  */
 
 #include "CHumanCodeBreaker.h"
+#include <iostream>
 
 namespace NMasterMind
 {
 
 //----------------------------------------------------------------------------//
 
-CHumanCodeBreaker::CHumanCodeBreaker( std::shared_ptr<CBoard> a_board )
-  : m_board(a_board)
-{}
+CHumanCodeBreaker::CHumanCodeBreaker( )
+{
+}
 
 //----------------------------------------------------------------------------//
 
-CGuess CHumanCodeBreaker::getGuess() const
+CGuess CHumanCodeBreaker::getGuess()
 {
     std::string l_str;
     do
     {
-        std::cout << "Next guess? (" << ctSlots << " digits, from 1 to 6): " << std::flush;
+        std::cout << "Next guess? (" << ctSlots << " digits, from 1 to " << (int) ctPegs << ": " << std::flush;
         std::cin >> l_str;
     } while (!checkInput( l_str ));
 
     // std::copy ?
     CGuess l_guess;
-    for (int i = 0; i < ctSlots; ++i)
-    {
-        l_guess[i] = l_str[i];
-    }
+    l_guess.fromString( l_str );
     return l_guess;
 }
 
@@ -39,6 +37,8 @@ CGuess CHumanCodeBreaker::getGuess() const
 bool CHumanCodeBreaker::checkInput( const std::string &a_input )
 {
     bool l_result = ctSlots == a_input.size();
+
+    // TODO: Construct a literal at compile time from the defines in MastermindCommonDefines
     l_result &= std::string::npos == a_input.find_first_not_of( "123456" );
     return l_result;
 }

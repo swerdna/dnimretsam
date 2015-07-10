@@ -3,10 +3,12 @@
  */
 
 #include "CKnuthCodeBreaker.h"
+#include <list>
+#include <algorithm>
+#include "CBoard.h"
 
 namespace NMasterMind
 {
-
 
 //----------------------------------------------------------------------------//
 
@@ -27,82 +29,41 @@ void CKnuthCodeBreaker::initCandidates()
 {
     const int l_capacity = pow( ctPegs, ctSlots );
 
-    // populate the set of candidates
-    m_candidates.reserve( l_capacity );
-
-    for ( size_t i = 0 ; i < l_capacity; ++i )
+    CGuess l_candidate(1111);
+    for (int i = 0; i < l_capacity; ++i)
     {
-        // hint end insertion
-        m_candidates.insert( m_candidates.end(), CGuess(i) );
+        m_candidates.insert( m_candidates.end(), l_candidate );
+        ++l_candidate;
     }
-
     m_unusedCandidates = m_candidates;
 }
 
-CResult evaluateGuess( const CGuess &a_guess )
-{
-    size_t l_outputIdx = 0;
-    CResult l_res;
+//----------------------------------------------------------------------------//
 
-    // Take a copy of the answer, and the code on the stack to make temporary modifications
-    CGuess l_guess = a_guess;
-    CGuess l_code = m_code;
-
-    // Check exact matches first
-    for ( size_t i = 0; i < l_code.size(); ++i )
-    {
-        // Matches, same position and value.
-        if ( l_guess[ i ] == l_code[ i ] )
-        {
-            l_res[ l_outputIdx++ ] = ctMatchChar;
-
-            // Invalidate this guess so it's not matched again.
-            l_guess[ i ] = -1;
-            l_code[ i ]  = -2;
-        }
-    }
-
-    // Check for pegs that match the code, but are transposed
-    for ( auto&& l_codePeg : l_code )
-    {
-        for ( auto&& l_guessPeg : l_guess )
-        {
-            if ( l_guessPeg == l_codePeg )
-            {
-                l_res[ l_outputIdx++ ] = ctTransposeChar;
-
-                // Invalidate this guess so it's not matched again.
-                l_guessPeg = -1;
-                l_codePeg  = -2;
-                break;
-            }
-        }
-    }
-    return l_res;
-}
-
-CGuess CKnuthCodeBreaker::getGuess() const
+CGuess CKnuthCodeBreaker::getGuess()
 {
     if (m_candidates.empty())
     {
         initCandidates();
 
-        m_candidates.erase( 1122 );
+        m_candidates.erase( CGuess(1122) );
 
-        m_lastGuess = {{ '1', '1', '2', '2' }};
+        CGuess l_initialGuess(1122);
+        std::swap ( m_lastGuess, l_initialGuess );
     }
     else
     {
         {
             // retrieve the last result from the board
-            CResult l_lastResult = m_board->getLastResult();
+            const CResult *l_lastResult = m_board->getLastResult();
 
             auto l_iter = m_candidates.begin();
 
+            // prune the candidates
             do
             {
                 // If the candidate is the code, does the result match?
-                if ( l_lastResult != evaluateGuess( m_lastGuess, *l_iter ) )
+                if ( (*l_lastResult) != m_lastGuess.compare( *l_iter ) )
                 {
                     l_iter = m_candidates.erase( l_iter );
                 }
@@ -117,16 +78,70 @@ CGuess CKnuthCodeBreaker::getGuess() const
         // walk through again - perform minimax
         // for each remaining candidate, find the un-guessed
         // combination that eliminates the most candidates
-        for (auto&& i : m_candidates)
+        std::pair< int, std::list<CGuess> > l_bestCandidate;
+        l_bestCandidate.first = 0;
+
+        std::vector< int > l_eliminationsPerResult;
+        l_eliminationsPerResult.reserve( ctSlots * 2 + 2 );
+
+        for (auto&& i : m_unusedCandidates)
         {
-            int results[2][4] = {0};
-            for (auto&& j : m_unusedCandidates)
+            // all the possible results
+            for (int l_black = 0; l_black < ctSlots; ++l_black)
             {
-                CResult l_res = evaluateGuess( i, j );
-                ++ results[ l_res.first() ] [ l_res.second() ];
+                for (int l_white = 0; l_white < ctSlots - l_black; ++l_white)
+                {
+                    const CResult l_res(l_black, l_white);
+                    int l_eliminated = 0;
+
+                    // How many candidates would not give this result?
+                    // (and could therefore be eliminated)
+                    for (auto&& j : m_candidates)
+                    {
+                        if ( l_res != j.compare(i) )
+                        {
+                            ++ l_eliminated;
+                        }
+                    }
+
+                    l_eliminationsPerResult.push_back( l_eliminated );
+                }
+            }
+
+            // find the minimum number of eliminations for this selection
+            int l_minEliminations = *(std::min_element( l_eliminationsPerResult.begin(), l_eliminationsPerResult.end() ));
+
+            // Is that our new best?
+            if (l_bestCandidate.first < l_minEliminations)
+            {
+                l_bestCandidate.second.clear();
+                l_bestCandidate.first = l_minEliminations;
+                l_bestCandidate.second.push_back(i);
+            }
+            else if (l_bestCandidate.first == l_minEliminations)
+            {
+                l_bestCandidate.second.push_back(i);
+            }
+
+            l_eliminationsPerResult.clear();
+        }
+
+        // Check if any best guesses are in the 'candidates' set
+        m_lastGuess = l_bestCandidate.second.front();
+
+        for (auto&& i : l_bestCandidate.second)
+        {
+            if (m_candidates.end() != m_candidates.find( i ))
+            {
+                m_lastGuess = i;
+                break;
             }
         }
     }
+
+    m_candidates.erase( m_lastGuess );
+    m_unusedCandidates.erase( m_lastGuess );
+
     return m_lastGuess;
 }
 

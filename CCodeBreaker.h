@@ -1,42 +1,44 @@
-#ifndef MMIND_CHUMANCODEBREAKER_H_INCLUDED
-#define MMIND_CHUMANCODEBREAKER_H_INCLUDED
+#ifndef MMIND_CCODEBREAKER_H_INCLUDED
+#define MMIND_CCODEBREAKER_H_INCLUDED
 
 /**
  * Copyright 2015 Bob Andrews
  */
 
-#include "CCodeBreaker.h"
+#include <memory>
 #include "MastermindCommonDefines.h"
+#include "CGuess.h"
 
 namespace NMasterMind
 {
 
 class CBoard;
 
-class CHumanCodeBreaker : public CCodeBreaker
+class CCodeBreaker
 {
     public:
         /** Constructor **/
-        CHumanCodeBreaker();
+        CCodeBreaker() = default;
 
         /** Default destructor **/
-        ~CHumanCodeBreaker() = default;
+        virtual ~CCodeBreaker() = default;
 
         /**
          * Retrieves the next guess from the Code Breaker
          *
          * @param CGuess the guess from the human
          */
-        CGuess getGuess() const
+        virtual CGuess getGuess() = 0;
 
-    private:
         /**
-         * Helper to validate input.
+         * Sets the board.
          *
-         * @param a_input the string that came from the user
-         * @return bool true if the input matches.
-         */ 
-        static bool checkInput( const std::string &a_input)
+         * @param a_board handle to the board
+         */
+        void setBoard( std::shared_ptr<CBoard> a_board );
+
+    protected:
+        std::shared_ptr< CBoard > m_board;
 };
 
 }

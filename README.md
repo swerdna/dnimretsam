@@ -1,12 +1,19 @@
 # Devlog
 
+20150710
+* Ready for running.  Not the neatest, but should do for now.
+* Tidied up yesterdays tidy ups.
+* Implemented Knuth
+* Tested manually a bit
+* Modified the result and guess classes.
+
+20150709
+* No compiler access today.  Some minor cleanups.
+
 20150708
 
 * sketched out thoughts, initial constraints, UI, rough design.
 * implemented first pass prototype
-
-20150709
-* No compiler access today.  Some minor cleanups.
 
 # Thoughts
 
@@ -42,7 +49,7 @@ Codemaster score: 4
 Next guess: 
 ```
 
-# Design
+# Rough Design
 
 ```
 Round  comprises Guess and Result
@@ -66,18 +73,18 @@ Game
     Board
     Codebreaker
     Codemaster
+    play
 ```
 
 # Technical debt / backlog
 
-* Remove hardcoding
-* Tabs to spaces
-* Implementation out of headers
+* Unit tests
 * Out of source builds.
 * Factories for CodeMaster / CodeBreaker (to support human / computer playing either role)
 * Observer for CodeBreaker / board maybe
-* Knuth / other algorithms as code breakers
+* Other algorithms as code breakers
 * Template metaprogramming solver based on Knuth
 * Command line invocation parameters: select algorithm
 * Support variants
+* Remove hardcoding
 

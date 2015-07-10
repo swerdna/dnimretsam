@@ -6,7 +6,10 @@
  */
 
 #include <vector>
+#include <tuple>
 #include "MastermindCommonDefines.h"
+#include "CGuess.h"
+#include "CResult.h"
 
 namespace NMasterMind
 {
@@ -43,9 +46,20 @@ class CBoard
          */
         void updateBoard( const CGuess &a_guess, const CResult &a_result );
 
+        /**
+         * Returns a handle to the result of the last guess.
+         *
+         * @return const CResult * last guess
+         */
+        const CResult *getLastResult() const;
+
     private:
-        typedef std::tuple< const CGuess, const CResult > tRound;
-        std::vector< const tRound > m_guesses;
+
+        /** A "round" in a guess / result **/
+        typedef typename std::tuple< const CGuess, const CResult > tRound;
+
+        /** The guesses **/
+        std::vector< tRound > m_guesses;
 };
 
 }

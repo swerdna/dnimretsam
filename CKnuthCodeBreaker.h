@@ -4,6 +4,7 @@
 /**
  * Copyright 2015 Bob Andrews
  */
+#include <set>
 
 #include "CCodeBreaker.h"
 #include "MastermindCommonDefines.h"
@@ -24,7 +25,7 @@ class CKnuthCodeBreaker : public CCodeBreaker
          *
          * @param CGuess the guess from the human
          */
-        CGuess getGuess() const
+        CGuess getGuess();
 
     private:
 
@@ -33,7 +34,7 @@ class CKnuthCodeBreaker : public CCodeBreaker
          */
         void initCandidates();
 
-        // The remaining candidates (S)
+        // The remaining candidates
         std::set< CGuess > m_candidates;
 
         // The unused candidates
@@ -43,3 +44,5 @@ class CKnuthCodeBreaker : public CCodeBreaker
 };
 
 }
+
+#endif  // MMIND_CKNUTHCODEBREAKER_H_INCLUDED

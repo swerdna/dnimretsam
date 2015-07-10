@@ -4,9 +4,13 @@ project( mastermind )
 set ( MMIND_SRCS
       CGame.cpp
       CBoard.cpp
-      CCodeMaker.cpp
+      CCodeMaster.cpp
       CCodeBreaker.cpp
       mastermind.cpp
+      CHumanCodeBreaker.cpp
+      CKnuthCodeBreaker.cpp
+      CResult.cpp
+      CGuess.cpp
     )
 
 add_executable( mastermind ${MMIND_SRCS} )

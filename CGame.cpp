@@ -3,6 +3,9 @@
  */
 
 #include "CGame.h"
+
+#include <iostream>
+
 #include "CBoard.h"
 #include "CCodeMaster.h"
 #include "CKnuthCodeBreaker.h"
@@ -12,38 +15,44 @@
 namespace NMasterMind
 {
 
+//----------------------------------------------------------------------------//
+
 CGame::CGame( const std::string &a_code )
   : m_board  ( new CBoard )
   , m_master ( new CCodeMaster )
-  , m_breaker( new CCodeBreaker( m_board ) )
 {
     // TODO: better validation for this input
     // TODO: Could be a factory.
     if (ctSlots == a_code.size())
     {
         m_master->setCode( a_code );
-        m_breaker = new CKnuthCodeBreaker( m_board );
+        m_breaker.reset(new CKnuthCodeBreaker);
     }
     else
     {
-        m_breaker = new CCodeBreaker( m_board );
+        m_master->createCode();
+        m_breaker.reset(new CHumanCodeBreaker);
     }
 
-    // TODO: Configuration
+    m_breaker->setBoard( m_board );
 }
+
+//----------------------------------------------------------------------------//
 
 CGame::~CGame()
 {
 }
 
+//----------------------------------------------------------------------------//
+
 EGameResult CGame::playGame()
 {
-    m_master->createCode();
     bool l_won = false;
-
     int i = 0;
-    for (; i < 12 && false == l_won; ++i)
+
+    for (; i < ctMaxRounds && false == l_won; ++i)
     {
+        std::cout << "Round " << i + 1 << std::endl;
         m_board->display();
 
         CGuess l_guess = m_breaker->getGuess();

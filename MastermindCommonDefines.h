@@ -5,7 +5,7 @@
  * Copyright 2015 Bob Andrews
  */
 
-#include <algorithm>
+#include <cstddef>
 
 namespace NMasterMind
 {
@@ -17,29 +17,6 @@ static const int    ctPegs          = 6;
 static const char   ctPadChar       = '.';
 static const char   ctMatchChar     = 'B';
 static const char   ctTransposeChar = 'W';
-
-typedef std::array< char , ctSlots > CGuess;
-
-struct CResult
-{
-    CResult()
-    {
-        std::fill( m_result.begin(), m_result.end(), ctPadChar );
-    }
-
-    bool isWinner() const
-    {
-        // If this result only contains 'B's, we have a winner.
-        return m_result.end() ==
-            std::find_if_not( m_result.begin(), m_result.end(),
-                              []( char i) { return ctMatchChar == i ; }
-                            );
-    }
-
-    char &operator[]( size_t i ) { return m_result[i]; }
-
-    std::array< char , ctSlots > m_result;
-};
 
 }
 

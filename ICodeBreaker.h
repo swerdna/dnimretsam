@@ -8,6 +8,8 @@
 namespace NMasterMind
 {
 
+class CBoard;
+
 /**
  * Abstract, but does contain one data member
  */

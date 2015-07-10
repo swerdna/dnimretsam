@@ -6,6 +6,8 @@
  */
 
 #include "MastermindCommonDefines.h"
+#include "CGuess.h"
+#include "CResult.h"
 
 namespace NMasterMind
 {
@@ -13,6 +15,8 @@ namespace NMasterMind
 class CCodeMaster
 {
     public:
+        CCodeMaster() = default;
+
         /** Creates and remembers a code **/
         void createCode();
 

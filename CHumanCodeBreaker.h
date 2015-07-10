@@ -27,7 +27,7 @@ class CHumanCodeBreaker : public CCodeBreaker
          *
          * @param CGuess the guess from the human
          */
-        CGuess getGuess() const
+        CGuess getGuess();
 
     private:
         /**
@@ -36,7 +36,7 @@ class CHumanCodeBreaker : public CCodeBreaker
          * @param a_input the string that came from the user
          * @return bool true if the input matches.
          */ 
-        static bool checkInput( const std::string &a_input)
+        static bool checkInput( const std::string &a_input);
 };
 
 }
