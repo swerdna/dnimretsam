@@ -5,40 +5,37 @@
  * Copyright 2015 Bob Andrews
  */
 
-#include <memory>
-#include "MastermindCommonDefines.h"
-#include "CGuess.h"
-
 namespace NMasterMind
 {
 
 class CBoard;
 
+/**
+ * Abstract, but does contain one data member
+ */
 class CCodeBreaker
 {
     public:
-        /** Constructor **/
-        CCodeBreaker() = default;
-
         /** Default destructor **/
         virtual ~CCodeBreaker() = default;
 
         /**
          * Retrieves the next guess from the Code Breaker
          *
-         * @param CGuess the guess from the human
+         * @param CGuess the guess
          */
-        virtual CGuess getGuess() = 0;
+        virtual CGuess getGuess() const = 0;
 
         /**
-         * Sets the board.
+         * Sets a handle to the board.
          *
-         * @param a_board handle to the board
+         * @param a_board the board.
          */
-        void setBoard( std::shared_ptr<CBoard> a_board );
-
+        virtual void setBoard( std::shared_ptr<CBoard> a_board );
     protected:
-        std::shared_ptr< CBoard > m_board;
+        
+        /** Handle to the board **/
+        const std::shared_ptr<CBoard> m_board;
 };
 
 }

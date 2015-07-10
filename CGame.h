@@ -24,12 +24,12 @@ class CGame
 {
     public:
         /** Constructor **/
-        CGame();
+        CGame( const std::string &a_code );
 
         /** Destructor **/
         ~CGame();
 
-        /** Disallow copying **/
+        /** Disallow copying, assignment **/
         CGame( CGame const & ) = delete;
         void operator=( CGame const & ) = delete;
 
