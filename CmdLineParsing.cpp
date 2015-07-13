@@ -12,11 +12,21 @@ namespace NMasterMind
 {
 
 //----------------------------------------------------------------------------//
-void usage( const char *a_progName)
+void usage( const char *a_progName, std::ostream &ar_str)
 {
-    std::cout << "usage: " << a_progName << " [-c code]" << std::endl
-              << " where code is " << NMasterMind::ctSlots << " digits long, and contains only the"
-              << " digits from 1 to " << NMasterMind::ctPegs << std::endl;
+    std::string l_name;
+    if (nullptr == a_progName)
+    {
+        l_name = "<program name>";
+    }
+    else
+    {
+        l_name = a_progName;
+    }
+
+    ar_str << "usage: " << l_name << " [-c code]" << std::endl
+           << " where code is " << NMasterMind::ctSlots << " digits long, and contains only the"
+           << " digits from 1 to " << NMasterMind::ctPegs << std::endl;
 }
 
 //----------------------------------------------------------------------------//
@@ -25,8 +35,19 @@ std::pair<bool, std::string> checkOpts( int argc, char **argv )
 {
     std::string l_code;
     bool l_human = true;
+    bool l_valid = false;
 
-    if (1 < argc)
+    switch( argc )
+    {
+        case 3: // intentional fall through
+        case 1:
+            l_valid = true;
+            break;
+        default:
+            break;
+    }
+
+    if (false != l_valid && 1 < argc)
     {
         int c = 0;
         while (-1 != ( c = getopt( argc, argv, "c:" )))
@@ -34,8 +55,15 @@ std::pair<bool, std::string> checkOpts( int argc, char **argv )
             switch (c)
             {
                 case 'c':
-                    l_human = false;
-                    l_code = optarg;
+                    if (nullptr == optarg)
+                    {
+                        l_valid = false;
+                    }
+                    else
+                    {
+                        l_human = false;
+                        l_code = optarg;
+                    }
                     break;
                 default:
                     break;
@@ -43,8 +71,7 @@ std::pair<bool, std::string> checkOpts( int argc, char **argv )
         }
     }
 
-    bool l_valid = true;
-    if (false == l_human)
+    if (false != l_valid && false == l_human)
     {
         if (NMasterMind::ctSlots != l_code.size())
         {

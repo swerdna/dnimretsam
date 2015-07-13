@@ -7,6 +7,8 @@
 
 #include <memory>
 
+class Game_Init_Test;
+
 namespace NMasterMind
 {
 
@@ -49,6 +51,8 @@ class CGame
 
         /** The codebreaker **/
         std::unique_ptr< CCodeBreaker > m_breaker;
+
+        friend class ::Game_Init_Test;
 };
 
 }
