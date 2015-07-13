@@ -3,7 +3,7 @@
  */
 
 #include "CBoard.h"
-#include <iostream>
+#include <ostream>
 
 namespace NMasterMind
 {
@@ -17,13 +17,13 @@ CBoard::CBoard()
 
 //----------------------------------------------------------------------------//
 
-void CBoard::display() const
+std::ostream &CBoard::display( std::ostream &ar_str ) const
 {
     // First print placeholders for the unplayed rounds
     for (int i = ctMaxRounds; i > m_guesses.size(); --i)
     {
-        std::cout << "+---------+---------+\n"
-                  << "| . . . . | . . . . |\n";
+        ar_str << "+---------+---------+\n"
+               << "| . . . . | . . . . |\n";
     }
 
     // Now the played rounds
@@ -32,29 +32,31 @@ void CBoard::display() const
 
     for ( ; l_iter != l_endIter; ++l_iter)
     {
-        std::cout << "+---------+---------+\n"
-                  << "| ";
+        ar_str << "+---------+---------+\n"
+               << "| ";
 
         // Print the guess
-        std::cout << std::get<0>(*l_iter);
+        ar_str << std::get<0>(*l_iter);
 
-        std::cout<< "| ";
+        ar_str<< "| ";
                 
         // Print the result
-        std::cout << std::get<1>(*l_iter);
+        ar_str << std::get<1>(*l_iter);
 
-        std::cout<< "|";
+        ar_str<< "|";
 
         // Indicate the winning row, if there is one.
         if ( std::get<1>(*l_iter).isWinner() )
         {
-            std::cout << " <--- You Win, Congratulations!";
+            ar_str << " <--- You Win, Congratulations!";
         }
 
-        std::cout << '\n';
+        ar_str << '\n';
     }
 
-    std::cout << "+---------+---------+" << std::endl; 
+    ar_str << "+---------+---------+" << std::endl; 
+
+    return ar_str;
 }
 
 //----------------------------------------------------------------------------//
@@ -62,7 +64,7 @@ void CBoard::display() const
 void CBoard::updateBoard( const CGuess &a_guess, const CResult &a_result )
 {
     // Copies the guess and result into the board.
-    tRound l_round( a_guess, a_result );
+    const tRound l_round( a_guess, a_result );
     m_guesses.push_back( l_round );
 }
 

@@ -32,7 +32,7 @@ CGuess::CGuess(int a_int)
 
 void CGuess::fromString( const std::string &a_str )
 {
-    // TODO: str validation.
+    // Any malformed strings should have been caught before here.
     for ( int i = 0; i < ctSlots; ++i )
     {
         m_guess[i] = a_str[i];

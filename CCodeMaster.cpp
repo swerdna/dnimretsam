@@ -27,7 +27,7 @@ void CCodeMaster::createCode()
 
     CGuess l_guess( l_code );
 
-    std::swap( m_code, l_guess );
+    m_code = l_guess;
 }
 
 //----------------------------------------------------------------------------//
