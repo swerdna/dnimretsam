@@ -5,11 +5,15 @@
  * Copyright 2015 Bob Andrews
  */
 
+#include <iosfwd>
 #include <vector>
 #include <tuple>
 #include "MastermindCommonDefines.h"
 #include "CGuess.h"
 #include "CResult.h"
+
+class Board_Init_Test;
+class Board_Updates_Test;
 
 namespace NMasterMind
 {
@@ -21,7 +25,7 @@ class CBoard
         CBoard();
         
         /**
-         * Displays the board, prints to stdout
+         * Displays the board, prints to the provided stream
          *
          * +---------+---------+
          * | . . . . | . . . . |
@@ -36,7 +40,7 @@ class CBoard
          * +---------+---------+
          *
          */
-        void display() const;
+        std::ostream &display( std::ostream &ar_str ) const;
 
         /**
          * Adds the guess and the result to the board
@@ -60,6 +64,9 @@ class CBoard
 
         /** The guesses **/
         std::vector< tRound > m_guesses;
+
+        friend class ::Board_Init_Test;
+        friend class ::Board_Updates_Test;
 };
 
 }

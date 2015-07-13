@@ -27,8 +27,15 @@ CResult::CResult( int a_black, int a_white )
 
 bool CResult::operator != (const CResult &a_rhs) const
 {
-    return m_black != a_rhs.m_black
-        || m_white != a_rhs.m_white;
+    return !( *this == a_rhs );
+}
+
+//----------------------------------------------------------------------------//
+
+bool CResult::operator == (const CResult &a_rhs) const
+{
+    return m_black == a_rhs.m_black
+        && m_white == a_rhs.m_white;
 }
 
 //----------------------------------------------------------------------------//

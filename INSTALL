@@ -10,6 +10,8 @@ Development environment:
 
 ./build.sh
 
+Unit tests :  ./testMastermind
+
 # Running
 
 ## Human player

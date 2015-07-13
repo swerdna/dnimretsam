@@ -27,6 +27,14 @@ class CGuess
         explicit CGuess(int a_int);
 
         /**
+         * Force a default move constructor, and a copy constructor.
+         * Should be implicit.
+         */
+        CGuess( CGuess && ) = default;
+        CGuess( const CGuess & ) = default;
+        CGuess &operator=( const CGuess & ) = default;
+
+        /**
          * To support being in an ordered container
          *
          * @param a_rhs the right hand side
@@ -59,6 +67,8 @@ class CGuess
 
         /**
          * populates m_guess from the string.
+         * precondition: the string must be 'ctSlots' characters long
+         *               and each character is a digit from 1 to 'ctPegs'
          *
          * @param a_str the valid string representing a guess
          */

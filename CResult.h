@@ -26,12 +26,27 @@ class CResult
         CResult( int a_black, int a_white );
 
         /**
+         * Force a default move constructor, and a copy constructor.
+         * Should be implicit.
+         */
+        CResult( CResult && ) = default;
+        CResult( const CResult & ) = default;
+
+        /**
          * Inequality operator
          *
          * @param a_rhs the result to compare with
          * @return true if these objects are not equivalent
          **/
         bool operator != (const CResult &a_rhs) const;
+
+        /**
+         * Equality operator
+         *
+         * @param a_rhs the result to compare with
+         * @return true if these objects are equivalent
+         **/
+        bool operator == (const CResult &a_rhs) const;
 
         /**
          * Do we have a winner?

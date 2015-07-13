@@ -53,7 +53,7 @@ EGameResult CGame::playGame()
     for (; i < ctMaxRounds && false == l_won; ++i)
     {
         std::cout << "Round " << i + 1 << std::endl;
-        m_board->display();
+        m_board->display( std::cout );
 
         CGuess l_guess = m_breaker->getGuess();
 
@@ -64,7 +64,7 @@ EGameResult CGame::playGame()
         l_won = l_result.isWinner();
     }
 
-    m_board->display();
+    m_board->display( std::cout );
 
     if (false == l_won)
     {
