@@ -74,7 +74,7 @@ EGameResult CGame::playGame()
     }
     std::cout << "CodeMaster's score: " << i << std::endl;
 
-    return EGameResult::CodeBreakerWon;
+    return l_won ? EGameResult::CodeBreakerWon : EGameResult::CodeMasterWon;
 }
 
 }

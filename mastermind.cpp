@@ -1,5 +1,6 @@
 #include "CGame.h"
 #include "CmdLineParsing.h"
+#include <iostream>
 
 //----------------------------------------------------------------------------//
 
@@ -9,7 +10,7 @@ int main( int argc, char **argv )
 
     if (false == l_params.first)
     {
-        NMasterMind::usage(argv[0]);
+        NMasterMind::usage(argv[0], std::cout);
     }
     else
     {

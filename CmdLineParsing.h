@@ -7,6 +7,7 @@
 
 #include <string>
 #include <utility>
+#include <iosfwd>
 
 namespace NMasterMind
 {
@@ -15,8 +16,9 @@ namespace NMasterMind
  * Prints a usage string; displays the command line options
  *
  * @param a_progName the executable name to prepend to the usage statement
+ * @param ar_str the output stream
  */
-void usage( const char *a_progName);
+void usage( const char *a_progName, std::ostream &ar_str);
 
 /**
  * Checks the options

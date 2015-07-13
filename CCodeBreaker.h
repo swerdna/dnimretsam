@@ -9,6 +9,8 @@
 #include "MastermindCommonDefines.h"
 #include "CGuess.h"
 
+class CodeBreaker_SetBoard_Test;
+
 namespace NMasterMind
 {
 
@@ -39,6 +41,8 @@ class CCodeBreaker
 
     protected:
         std::shared_ptr< CBoard > m_board;
+
+        friend class ::CodeBreaker_SetBoard_Test;
 };
 
 }
