@@ -21,7 +21,7 @@ CGuess CHumanCodeBreaker::getGuess()
     std::string l_str;
     do
     {
-        std::cout << "Next guess? (" << ctSlots << " digits, from 1 to " << (int) ctPegs << ": " << std::flush;
+        std::cout << "Next guess? (" << ctSlots << " digits, from 1 to " << (int) ctPegs << "): " << std::flush;
         std::cin >> l_str;
     } while (!checkInput( l_str ));
 

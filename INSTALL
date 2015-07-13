@@ -1,0 +1,23 @@
+# Build and install notes
+
+Development environment:
+* clang 3.5.04ubuntu2  (LLVM 3.5.0)
+* cmake 2.8.12.2
+* libstdc++.so.6.0.20
+* kernel: 3.16.0-41-generic #55-Ubuntu SMP Sun Jun 14 18:31:10 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+
+# Building
+
+./build.sh
+
+# Running
+
+## Human player
+
+./mindmaster
+
+## Knuth solver
+
+./mindmaster -c 6543
+
+

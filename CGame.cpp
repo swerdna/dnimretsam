@@ -72,7 +72,7 @@ EGameResult CGame::playGame()
         // Codemaster gets an extra point if the code was unguessed.
         ++i;
     }
-    std::cout << "CodeMaster's score: " << ++i << std::endl;
+    std::cout << "CodeMaster's score: " << i << std::endl;
 
     return EGameResult::CodeBreakerWon;
 }
