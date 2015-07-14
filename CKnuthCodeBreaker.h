@@ -9,13 +9,16 @@
 #include "CCodeBreaker.h"
 #include "MastermindCommonDefines.h"
 
+class KnuthBreaker_Init_Test;
+class KnuthBreaker_Guess_Test;
+
 namespace NMasterMind
 {
 
 class CKnuthCodeBreaker : public CCodeBreaker
 {
     public:
-        CKnuthCodeBreaker();
+        CKnuthCodeBreaker() = default;
 
         /** Default destructor **/
         ~CKnuthCodeBreaker() = default;
@@ -25,7 +28,7 @@ class CKnuthCodeBreaker : public CCodeBreaker
          *
          * @param CGuess the guess from the human
          */
-        CGuess getGuess();
+        CGuess getGuess() override;
 
     private:
 
@@ -41,6 +44,9 @@ class CKnuthCodeBreaker : public CCodeBreaker
         std::set< CGuess > m_unusedCandidates;
 
         CGuess m_lastGuess;
+
+        friend class ::KnuthBreaker_Init_Test;
+        friend class ::KnuthBreaker_Guess_Test;
 };
 
 }

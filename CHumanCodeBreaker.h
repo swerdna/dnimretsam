@@ -8,6 +8,8 @@
 #include "CCodeBreaker.h"
 #include "MastermindCommonDefines.h"
 
+class HumanBreaker_InputValidation_Test;
+
 namespace NMasterMind
 {
 
@@ -17,17 +19,17 @@ class CHumanCodeBreaker : public CCodeBreaker
 {
     public:
         /** Constructor **/
-        CHumanCodeBreaker();
+        CHumanCodeBreaker() = default;
 
         /** Default destructor **/
-        ~CHumanCodeBreaker() = default;
+        virtual ~CHumanCodeBreaker() = default;
 
         /**
          * Retrieves the next guess from the Code Breaker
          *
          * @param CGuess the guess from the human
          */
-        CGuess getGuess();
+        CGuess getGuess() override;
 
     private:
         /**
@@ -37,6 +39,8 @@ class CHumanCodeBreaker : public CCodeBreaker
          * @return bool true if the input matches.
          */ 
         static bool checkInput( const std::string &a_input);
+
+        friend class ::HumanBreaker_InputValidation_Test;
 };
 
 }
