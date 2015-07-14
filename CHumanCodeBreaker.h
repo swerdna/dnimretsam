@@ -5,7 +5,8 @@
  * Copyright 2015 Bob Andrews
  */
 
-#include "CCodeBreaker.h"
+#include <string>
+#include "ICodeBreaker.h"
 #include "MastermindCommonDefines.h"
 
 class HumanBreaker_InputValidation_Test;
@@ -13,9 +14,7 @@ class HumanBreaker_InputValidation_Test;
 namespace NMasterMind
 {
 
-class CBoard;
-
-class CHumanCodeBreaker : public CCodeBreaker
+class CHumanCodeBreaker : public ICodeBreaker
 {
     public:
         /** Constructor **/
@@ -27,9 +26,10 @@ class CHumanCodeBreaker : public CCodeBreaker
         /**
          * Retrieves the next guess from the Code Breaker
          *
-         * @param CGuess the guess from the human
+         * @param ar_result the last result
+         * @return CGuess the guess from the human
          */
-        CGuess getGuess() override;
+        CGuess getGuess(const CResult &ar_result ) override;
 
     private:
         /**
@@ -45,4 +45,4 @@ class CHumanCodeBreaker : public CCodeBreaker
 
 }
 
-#endif  // MMIND_CCODEBREAKER_H_INCLUDED
+#endif  // MMIND_CHUMANCODEBREAKER_H_INCLUDED

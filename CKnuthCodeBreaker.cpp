@@ -5,7 +5,6 @@
 #include "CKnuthCodeBreaker.h"
 #include <list>
 #include <algorithm>
-#include "CBoard.h"
 
 namespace NMasterMind
 {
@@ -38,7 +37,7 @@ void CKnuthCodeBreaker::initCandidates()
 
 //----------------------------------------------------------------------------//
 
-CGuess CKnuthCodeBreaker::getGuess()
+CGuess CKnuthCodeBreaker::getGuess( const CResult &ar_result )
 {
     if (m_candidates.empty())
     {
@@ -52,16 +51,13 @@ CGuess CKnuthCodeBreaker::getGuess()
     else
     {
         {
-            // retrieve the last result from the board
-            const CResult *l_lastResult = m_board->getLastResult();
-
             auto l_iter = m_candidates.begin();
 
             // prune the candidates
             do
             {
                 // If the candidate is the code, does the result match?
-                if ( (*l_lastResult) != m_lastGuess.compare( *l_iter ) )
+                if (  ar_result != m_lastGuess.compare( *l_iter ) )
                 {
                     l_iter = m_candidates.erase( l_iter );
                 }

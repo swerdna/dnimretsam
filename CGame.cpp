@@ -33,8 +33,6 @@ CGame::CGame( const std::string &a_code )
         m_master->createCode();
         m_breaker.reset(new CHumanCodeBreaker);
     }
-
-    m_breaker->setBoard( m_board );
 }
 
 //----------------------------------------------------------------------------//
@@ -50,14 +48,16 @@ EGameResult CGame::playGame()
     bool l_won = false;
     int i = 0;
 
+    CResult l_result;
+
     for (; i < ctMaxRounds && false == l_won; ++i)
     {
         std::cout << "Round " << i + 1 << std::endl;
         m_board->display( std::cout );
 
-        CGuess l_guess = m_breaker->getGuess();
+        CGuess l_guess = m_breaker->getGuess( l_result );
 
-        auto l_result = m_master->evaluateGuess( l_guess );
+        l_result = m_master->evaluateGuess( l_guess );
 
         m_board->updateBoard( l_guess, l_result );
 
