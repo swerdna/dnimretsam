@@ -16,7 +16,7 @@ class CBoard;
 class ICodeBreaker;
 class CCodeMaster;
 
-enum EGameResult
+enum class EGameResult
 {
     CodeBreakerWon,
     CodeMasterWon
@@ -44,7 +44,7 @@ class CGame
 
     private:
         /** The board **/
-        std::shared_ptr< CBoard > m_board;
+        std::unique_ptr< CBoard > m_board;
 
         /** The codemaster **/
         std::unique_ptr< CCodeMaster > m_master;

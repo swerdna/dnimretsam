@@ -11,6 +11,7 @@ set ( MMIND_TEST_SRCS
       ${CMAKE_CURRENT_LIST_DIR}/CResultTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CGuessTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CmdLineParsingTest.cpp
+      ${CMAKE_CURRENT_LIST_DIR}/CBreakerFactoryTest.cpp
 # Including the sources from parent here.
 # We could build these as a library
       ${CMAKE_CURRENT_LIST_DIR}/../CGame.cpp
@@ -21,6 +22,7 @@ set ( MMIND_TEST_SRCS
       ${CMAKE_CURRENT_LIST_DIR}/../CKnuthCodeBreaker.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CResult.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CGuess.cpp
+      ${CMAKE_CURRENT_LIST_DIR}/../CBreakerFactory.cpp
     )
 
 include_directories( ${CMAKE_CURRENT_LIST_DIR}/../3rdparty/gtest/include

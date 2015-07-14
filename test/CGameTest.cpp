@@ -4,7 +4,6 @@
 
 #include "gtest/gtest.h"
 #include "CGame.h"
-#include "CGame.h"
 
 TEST( Game, Init )
 {
@@ -21,8 +20,9 @@ TEST( Game, Init )
         ASSERT_NE( nullptr, l_game.m_master );
         ASSERT_NE( nullptr, l_game.m_breaker );
 
-        ASSERT_EQ( CodeBreakerWon, l_game.playGame() );
+        ASSERT_EQ( EGameResult::CodeBreakerWon, l_game.playGame() );
     }
+
     {
         CGame l_game( "" );
 
