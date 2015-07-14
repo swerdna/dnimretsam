@@ -31,6 +31,7 @@ class CResult
          */
         CResult( CResult && ) = default;
         CResult( const CResult & ) = default;
+        CResult &operator=( CResult && ) = default;
 
         /**
          * Inequality operator

@@ -5,7 +5,6 @@
 #include "gtest/gtest.h"
 #include <cmath>
 #include "CKnuthCodeBreaker.h"
-#include "CBoard.h"
 
 TEST( KnuthBreaker, Init )
 {
@@ -31,16 +30,13 @@ TEST( KnuthBreaker, Guess )
 
     // Check we can find '1123'
     {
-        std::shared_ptr<CBoard> l_board( new CBoard );
         CKnuthCodeBreaker l_knuth;
-
-        l_knuth.setBoard(l_board);
 
         ASSERT_EQ( 0, l_knuth.m_candidates.size() );
         ASSERT_EQ( 0, l_knuth.m_unusedCandidates.size() );
 
         // The first guess is always "1122"
-        CGuess l_guess = l_knuth.getGuess();
+        CGuess l_guess = l_knuth.getGuess( CResult(0,0) );
 
         // Check that the guess is 1122
         ASSERT_EQ(CGuess(1122), l_guess);
@@ -52,15 +48,13 @@ TEST( KnuthBreaker, Guess )
         ASSERT_EQ( l_candidates, l_knuth.m_unusedCandidates.size() );
 
         // arbitrarily choose "1123" as the target
-        l_board->updateBoard( l_guess, CResult(3,0) );
 
-        l_guess = l_knuth.getGuess();
+        l_guess = l_knuth.getGuess( CResult(3,0) );
+
         ASSERT_EQ(CGuess(3121), l_guess);
         ASSERT_EQ( --l_candidates, l_knuth.m_unusedCandidates.size() );
 
-        l_board->updateBoard( l_guess, CResult(2,2) );
-
-        l_guess = l_knuth.getGuess();
+        l_guess = l_knuth.getGuess( CResult(2,2) );
 
         ASSERT_EQ( --l_candidates, l_knuth.m_unusedCandidates.size() );
         ASSERT_EQ(CGuess(1123), l_guess);

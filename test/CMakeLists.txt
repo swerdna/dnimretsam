@@ -6,7 +6,6 @@ set ( MMIND_TEST_SRCS
       ${CMAKE_CURRENT_LIST_DIR}/CGameTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CBoardTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CCodeMasterTest.cpp
-      ${CMAKE_CURRENT_LIST_DIR}/CCodeBreakerTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CHumanCodeBreakerTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CKnuthCodeBreakerTest.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CResultTest.cpp
@@ -16,9 +15,8 @@ set ( MMIND_TEST_SRCS
 # We could build these as a library
       ${CMAKE_CURRENT_LIST_DIR}/../CGame.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CBoard.cpp
-      ${CMAKE_CURRENT_LIST_DIR}/../CCodeMaster.cpp
-      ${CMAKE_CURRENT_LIST_DIR}/../CCodeBreaker.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CmdLineParsing.cpp
+      ${CMAKE_CURRENT_LIST_DIR}/../CCodeMaster.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CHumanCodeBreaker.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CKnuthCodeBreaker.cpp
       ${CMAKE_CURRENT_LIST_DIR}/../CResult.cpp

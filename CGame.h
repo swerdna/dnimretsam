@@ -13,7 +13,7 @@ namespace NMasterMind
 {
 
 class CBoard;
-class CCodeBreaker;
+class ICodeBreaker;
 class CCodeMaster;
 
 enum EGameResult
@@ -50,7 +50,7 @@ class CGame
         std::unique_ptr< CCodeMaster > m_master;
 
         /** The codebreaker **/
-        std::unique_ptr< CCodeBreaker > m_breaker;
+        std::unique_ptr< ICodeBreaker > m_breaker;
 
         friend class ::Game_Init_Test;
 };

@@ -6,8 +6,9 @@
  */
 #include <set>
 
-#include "CCodeBreaker.h"
+#include "ICodeBreaker.h"
 #include "MastermindCommonDefines.h"
+#include "CGuess.h"
 
 class KnuthBreaker_Init_Test;
 class KnuthBreaker_Guess_Test;
@@ -15,7 +16,7 @@ class KnuthBreaker_Guess_Test;
 namespace NMasterMind
 {
 
-class CKnuthCodeBreaker : public CCodeBreaker
+class CKnuthCodeBreaker : public ICodeBreaker
 {
     public:
         CKnuthCodeBreaker() = default;
@@ -28,7 +29,7 @@ class CKnuthCodeBreaker : public CCodeBreaker
          *
          * @param CGuess the guess from the human
          */
-        CGuess getGuess() override;
+        CGuess getGuess(const CResult &) override;
 
     private:
 

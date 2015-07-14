@@ -3,6 +3,7 @@
  */
 
 #include "CHumanCodeBreaker.h"
+#include "CGuess.h"
 #include <iostream>
 
 namespace NMasterMind
@@ -10,7 +11,7 @@ namespace NMasterMind
 
 //----------------------------------------------------------------------------//
 
-CGuess CHumanCodeBreaker::getGuess()
+CGuess CHumanCodeBreaker::getGuess( const CResult &ar_result)
 {
     std::string l_str;
     do

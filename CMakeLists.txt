@@ -6,7 +6,6 @@ set ( MMIND_SRCS
       ${CMAKE_CURRENT_LIST_DIR}/CGame.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CBoard.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CCodeMaster.cpp
-      ${CMAKE_CURRENT_LIST_DIR}/CCodeBreaker.cpp
       ${CMAKE_CURRENT_LIST_DIR}/mastermind.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CHumanCodeBreaker.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CKnuthCodeBreaker.cpp
