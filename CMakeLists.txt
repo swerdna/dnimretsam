@@ -12,6 +12,7 @@ set ( MMIND_SRCS
       ${CMAKE_CURRENT_LIST_DIR}/CResult.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CGuess.cpp
       ${CMAKE_CURRENT_LIST_DIR}/CmdLineParsing.cpp
+      ${CMAKE_CURRENT_LIST_DIR}/CBreakerFactory.cpp
     )
 
 add_executable( mastermind ${MMIND_SRCS} )

@@ -8,8 +8,7 @@
 
 #include "CBoard.h"
 #include "CCodeMaster.h"
-#include "CKnuthCodeBreaker.h"
-#include "CHumanCodeBreaker.h"
+#include "CBreakerFactory.h"
 #include "MastermindCommonDefines.h"
 
 namespace NMasterMind
@@ -26,12 +25,12 @@ CGame::CGame( const std::string &a_code )
     if (ctSlots == a_code.size())
     {
         m_master->setCode( a_code );
-        m_breaker.reset(new CKnuthCodeBreaker);
+        m_breaker.reset( CBreakerFactory::createBreaker( EBreaker::EKnuthCodeBreaker ));
     }
     else
     {
         m_master->createCode();
-        m_breaker.reset(new CHumanCodeBreaker);
+        m_breaker.reset( CBreakerFactory::createBreaker( EBreaker::EHumanCodeBreaker ));
     }
 }
 
