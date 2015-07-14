@@ -43,6 +43,14 @@ class CGuess
         bool operator<( const CGuess &a_rhs ) const;
 
         /**
+         * Equality
+         *
+         * @param a_rhs the right hand side
+         * @return true if these objects are equivalent
+         **/
+        bool operator==( const CGuess &a_rhs ) const;
+
+        /**
          * The number of elements in the underlying array
          *
          * @return the size

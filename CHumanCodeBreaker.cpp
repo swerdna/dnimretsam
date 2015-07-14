@@ -10,12 +10,6 @@ namespace NMasterMind
 
 //----------------------------------------------------------------------------//
 
-CHumanCodeBreaker::CHumanCodeBreaker( )
-{
-}
-
-//----------------------------------------------------------------------------//
-
 CGuess CHumanCodeBreaker::getGuess()
 {
     std::string l_str;
@@ -40,6 +34,7 @@ bool CHumanCodeBreaker::checkInput( const std::string &a_input )
 
     // TODO: Construct a literal at compile time from the defines in MastermindCommonDefines
     l_result &= std::string::npos == a_input.find_first_not_of( "123456" );
+
     return l_result;
 }
 

@@ -19,14 +19,12 @@ constexpr int pow(int n, int exp)
 
 //----------------------------------------------------------------------------//
 
-CKnuthCodeBreaker::CKnuthCodeBreaker()
-{
-}
-
-//----------------------------------------------------------------------------//
-
 void CKnuthCodeBreaker::initCandidates()
 {
+    // TODO: use permutations here.
+    // nCr, choose 4 from
+    // 111122223333444455556666
+
     const int l_capacity = pow( ctPegs, ctSlots );
 
     CGuess l_candidate(1111);

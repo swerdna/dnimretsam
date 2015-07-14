@@ -154,5 +154,10 @@ CGuess &CGuess::operator++()
     return *this;
 }
 
+bool CGuess::operator==( const CGuess &a_rhs ) const
+{
+    return m_guess == a_rhs.m_guess;
+}
+
 }
 
