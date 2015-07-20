@@ -1,5 +1,16 @@
 # Devlog
 
+20150720
+* Updated this README
+
+20150714
+* More unit tests (should cover all classes)
+* More refactoring
+
+20150713
+* Unit tests added (for most classes)
+* Added factory for Breaker
+
 20150710
 * Ready for running.  Not the neatest, but should do for now.
 * Tidied up yesterdays tidy ups.
@@ -78,13 +89,13 @@ Game
 
 # Technical debt / backlog
 
-* Unit tests
 * Out of source builds.
-* Factories for CodeMaster / CodeBreaker (to support human / computer playing either role)
 * Observer for CodeBreaker / board maybe
 * Other algorithms as code breakers
 * Template metaprogramming solver based on Knuth
 * Command line invocation parameters: select algorithm
 * Support variants
-* Remove hardcoding
+* Remove hardcoding / maybe wrap the common definitions in a class
+* Tidy up comments
+* More compile-time computation
 
